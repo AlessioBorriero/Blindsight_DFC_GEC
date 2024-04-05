@@ -99,6 +99,8 @@ venv.bak/
 */__pycache__/
 __pycache__/
 
+#output folder
+code/output/*
 
 #data folder content
 data/*
