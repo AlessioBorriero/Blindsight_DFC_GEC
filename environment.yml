@@ -1,0 +1,12 @@
+name: bs_laido
+dependencies:
+  - numpy
+  - pandas
+  - scikit-learn
+  - scipy
+  - mat73
+  - statannotations
+  - seaborn
+  - networkx
+  - nilearn
+  - nibabel
