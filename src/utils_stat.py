@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 
 # check values for stats in Cohen's d
-
 def cohen(x,y):
     d = (np.mean(x) - np.mean(y))/(np.sqrt((np.std(x)**2 + np.std(y)**2)/2))
     return d
@@ -33,6 +32,12 @@ def annotate_D(pairs, metric, data):
     
     return stats_res['p_val']
 
+def do_overlap(intervallo1, intervallo2):
+    a, b = intervallo1
+    c, d = intervallo2
+
+    # Controlla se gli intervalli si sovrappongono
+    return (a <= d and b >= c)
 
 
 def conf_int_pval(pairs, metric, data):
