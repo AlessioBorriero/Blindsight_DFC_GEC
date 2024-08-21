@@ -100,10 +100,11 @@ venv.bak/
 __pycache__/
 
 #output folder
-code/output/*
+code/outputs
+output
 
 #data folder content
-data/*
+data/
 
 #keep data folder
 !data/.gitkeep 

@@ -56,7 +56,8 @@ def truncate_colormap(cmap, minval=0.0, maxval=1.0, n=100):
 def normal_view(current_nodestrength, edges=False, surftype='inflated',
                 xlabel=r'$<s_i> $', q_thresh=0.0, cmap='RdBu_r',
                 brightness=0.7, exp_form=True, parcellation=100,
-                vmin=None, vmax=None,graymap_rev=False,alpha_graymap=1.,parcellation_name='schaefer',center_cbar=False):
+                vmin=None, vmax=None,graymap_rev=False,alpha_graymap=1.,parcellation_name='schaefer',center_cbar=False,
+                fontsize=25):
     '''
     Compute 2 different brain views to obtain a simple representation of the brain map
     by considering 'lateral' and 'medial'views
@@ -189,7 +190,7 @@ def normal_view(current_nodestrength, edges=False, surftype='inflated',
     fig = p.build(scale=(2, 2), cbar_kws=kws)
     plot_adjustments()
     fig.axes[1].set_xlabel(label, labelpad=-12,
-                           weight='normal', fontstyle='normal', fontsize=20)
+                           weight='normal', fontstyle='normal', fontsize=fontsize)
     
     
     # Adjusting the format of the colorbar range
@@ -213,7 +214,8 @@ def normal_view(current_nodestrength, edges=False, surftype='inflated',
 
 
 def full_view(current_nodestrength, edges=False, surftype='inflated', xlabel=r'$<s_i> $', q_thresh=0.25, cmap='custom',
-    brightness=0.7, exp_form=True, parcellation=100, vmin_plot=None, vmax_plot=None,graymap_rev=False,alpha_graymap=1.,parcellation_name='schaefer'):
+    brightness=0.7, exp_form=True, parcellation=100, vmin_plot=None, vmax_plot=None,graymap_rev=False,alpha_graymap=1.,parcellation_name='schaefer',
+             fontsize=25):
     '''
     Compute 6 different brain views to obtain a full representation of the brain map
     by considering 'lateral','medial','dorsal','ventral','anterior','posterior' views
@@ -321,7 +323,7 @@ def full_view(current_nodestrength, edges=False, surftype='inflated', xlabel=r'$
     fig = p.build(scale=(2, 2), cbar_kws=kws)
     plot_adjustments()
     fig.axes[1].set_xlabel(label, labelpad=-12,
-                           weight='bold', fontstyle='italic', fontsize=30)
+                           weight='bold', fontstyle='italic', fontsize=fontsize)
     # Adjusting the format of the colorbar range
     if exp_form == True:
         xmin_cbar, xmax_cbar = fig.axes[1].get_xlim()
@@ -457,3 +459,8 @@ def compose_full_view(remove_files=True, output_name='fig_final', save_svg=False
     # ax = plt.gca()
     # ax.axis('off')
     return(fig)
+
+# Remove colliculus
+def rm_SC(array):
+    new_array = np.concatenate((array[:180], array[181:]))
+    return new_array

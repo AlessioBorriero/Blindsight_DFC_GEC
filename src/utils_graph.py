@@ -85,9 +85,9 @@ def homotopic_connectivity(adj, full_c_sc_link):
     
     scoll_homo = np.sum(adj[-1,-2])
     
-    homo_conn = cort_homo + scoll_homo + subcort_homo
+    homo_conn = (cort_homo + scoll_homo + subcort_homo)/234 
     
-    return homo_conn
+    return (homo_conn, cort_homo/200, (subcort_homo+scoll_homo)/34)
     
 
 # Metrics on directed graph

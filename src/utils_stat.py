@@ -40,14 +40,14 @@ def do_overlap(intervallo1, intervallo2):
     return (a <= d and b >= c)
 
 
-def conf_int_pval(pairs, metric, data):
+def conf_int_pval(pairs, metric, data, x, hue, conf_level=97.5):
     stats_res = {} # Cohen's D between all pairs
     conf_int = []
     for p in pairs:
-        d1 = data.loc[data['groups']==p[0][1]].loc[data['state']==p[0][0]][metric].values
-        d2 = data.loc[data['groups']==p[1][1]].loc[data['state']==p[1][0]][metric].values
-        inter1 = [np.percentile(d1,2.5), np.percentile(d1,97.5)]
-        inter2 = [np.percentile(d2,2.5), np.percentile(d2,97.5)]
+        d1 = data.loc[data[hue]==p[0][1]].loc[data[x]==p[0][0]][metric].values
+        d2 = data.loc[data[hue]==p[1][1]].loc[data[x]==p[1][0]][metric].values
+        inter1 = [np.percentile(d1,100-conf_level), np.percentile(d1,conf_level)]
+        inter2 = [np.percentile(d2,100-conf_level), np.percentile(d2,conf_level)]
         conf_int.append(do_overlap(inter1,inter2))
 
     stats_res['Effect Size'] = conf_int
@@ -63,3 +63,16 @@ def conf_int_pval(pairs, metric, data):
     stats_res['p_val'] = new_p
     
     return stats_res['p_val']
+
+def conf_int_pval_pair(d1, d2, conf_level=97.5):
+    inter1 = [np.percentile(d1,100-conf_level), np.percentile(d1,conf_level)]
+    inter2 = [np.percentile(d2,100-conf_level), np.percentile(d2,conf_level)]
+    
+    conf_int = do_overlap(inter1,inter2)
+    if not conf_int:
+        new_p = 0.05
+    else:
+        new_p = 1
+    eff_size = cohen(d1,d2)
+
+    return eff_size, new_p
